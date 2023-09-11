@@ -1,4 +1,5 @@
 ﻿using Application.Features.Brands.Commands.Create;
+using Application.Features.Brands.Commands.Delete;
 using Application.Features.Brands.Commands.Update;
 using Application.Features.Brands.Queries.GetById;
 using Application.Features.Brands.Queries.GetList;
@@ -37,6 +38,12 @@ public class BrandsController : BaseController
     public async Task<IActionResult> Update([FromBody] UpdateBrandCommand updateBrandCommand)
     {
         UpdatedBrandResponse response = await Mediator.Send(updateBrandCommand);
+        return Ok(response);
+    }
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete([FromRoute] Guid id)
+    {
+        DeletedBrandResponse response = await Mediator.Send(new DeleteBrandCommand { Id = id });
         return Ok(response);
     }
 }
