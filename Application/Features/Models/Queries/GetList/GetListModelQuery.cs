@@ -31,7 +31,7 @@ public class GetListModelQuery :IRequest<GetListResponse<GetListModelListItemDto
                 size : request.PageRequest.PageSize
                 
                 );
-            var response = _mapper.Map<GetListModelListItemDto>(models);
+            var response = _mapper.Map <GetListResponse<GetListModelListItemDto>>(models);
             return response;
 
         }
