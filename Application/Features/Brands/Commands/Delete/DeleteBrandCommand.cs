@@ -27,7 +27,9 @@ public class DeleteBrandCommand : IRequest<DeletedBrandResponse>
         public async Task<DeletedBrandResponse> Handle(DeleteBrandCommand request, CancellationToken cancellationToken)
         {
             Brand? brand = await _brandRepository.GetAsync(predicate: b => b.Id == request.Id, cancellationToken: cancellationToken);
+
             await _brandRepository.DeleteAsync(brand);
+
             DeletedBrandResponse response = _mapper.Map<DeletedBrandResponse>(brand);
             return response;
 

@@ -31,6 +31,7 @@ public class UpdateBrandCommand : IRequest<UpdatedBrandResponse>
             brand = _mapper.Map(request, brand);
 
             await _brandRepository.UpdateAsync(brand);
+
             UpdatedBrandResponse response = _mapper.Map<UpdatedBrandResponse>(brand);
             return response;
         }
