@@ -1,4 +1,5 @@
-﻿using Core.Application.Pipelines.Transaction;
+﻿using Core.Application.Pipelines.Caching;
+using Core.Application.Pipelines.Transaction;
 using Core.Application.Pipelines.Validation;
 using Core.Application.Rules;
 using FluentValidation;
@@ -15,7 +16,7 @@ namespace Application;
 
 public static class ApplicationServiceRegistration
 {
-    public static IServiceCollection AddApplicationServices(this IServiceCollection services) 
+    public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddMediatR(configuration =>
@@ -24,11 +25,12 @@ public static class ApplicationServiceRegistration
 
             configuration.AddOpenBehavior(typeof(RequestValidationBehavior<,>));
             configuration.AddBehavior(typeof(TransactionScopeBehavior<,>));
-           
+            configuration.AddBehavior(typeof(CachingBehavior<,>));
+
         });
         services.AddSubClassesOfType(Assembly.GetExecutingAssembly(), typeof(BaseBusinessRules));
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-        
+
         return services;
     }
     public static IServiceCollection AddSubClassesOfType
@@ -39,18 +41,18 @@ public static class ApplicationServiceRegistration
         Func<IServiceCollection, Type, IServiceCollection>? addWithLifeCycle = null
         )
     {
-        var types = assembly.GetTypes().Where(t=>t.IsSubclassOf(type) && type != t).ToList();
-        foreach (var item in types) 
+        var types = assembly.GetTypes().Where(t => t.IsSubclassOf(type) && type != t).ToList();
+        foreach (var item in types)
         {
             if (addWithLifeCycle == null)
             {
                 services.AddScoped(item);
             }
-            else 
+            else
             {
                 addWithLifeCycle(services, type);
             }
-            
+
         }
         return services;
     }
