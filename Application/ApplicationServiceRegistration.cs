@@ -26,6 +26,7 @@ public static class ApplicationServiceRegistration
             configuration.AddOpenBehavior(typeof(RequestValidationBehavior<,>));
             configuration.AddBehavior(typeof(TransactionScopeBehavior<,>));
             configuration.AddBehavior(typeof(CachingBehavior<,>));
+            configuration.AddBehavior(typeof(CacheRemovingBehavior<,>));
 
         });
         services.AddSubClassesOfType(Assembly.GetExecutingAssembly(), typeof(BaseBusinessRules));
