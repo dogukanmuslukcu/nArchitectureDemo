@@ -21,6 +21,8 @@ public class CreateBrandCommand : IRequest<CreatedBrandResponse>,ITransactionalR
 
     public bool BypassCache => throw new NotImplementedException();
 
+    public string? CacheGroupKey => "GetBrands";
+
     public class CreateBrandCommandHandler : IRequestHandler<CreateBrandCommand, CreatedBrandResponse>
     {
         private readonly IBrandRepository _brandRepository;
