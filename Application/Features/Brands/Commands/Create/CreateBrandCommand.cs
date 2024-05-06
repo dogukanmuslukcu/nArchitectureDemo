@@ -14,13 +14,13 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Brands.Commands.Create;
 
-public class CreateBrandCommand : IRequest<CreatedBrandResponse>,ITransactionalRequest,ICacheRemoverRequest,ILogableRequest
+public class CreateBrandCommand : IRequest<CreatedBrandResponse>, ITransactionalRequest, ICacheRemoverRequest, ILogableRequest
 {
     public string Name { get; set; }
 
-    public string CacheKey => throw new NotImplementedException();
+    public string CacheKey => "";
 
-    public bool BypassCache => throw new NotImplementedException();
+    public bool BypassCache => false;
 
     public string? CacheGroupKey => "GetBrands";
 

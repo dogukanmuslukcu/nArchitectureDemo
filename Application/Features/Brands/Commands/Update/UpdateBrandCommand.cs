@@ -16,9 +16,9 @@ public class UpdateBrandCommand : IRequest<UpdatedBrandResponse>, ICacheRemoverR
     public Guid Id { get; set; }
     public string Name { get; set; }
 
-    public string? CacheKey => throw new NotImplementedException();
+    public string? CacheKey => "";
 
-    public bool BypassCache => throw new NotImplementedException();
+    public bool BypassCache => false;
 
     public string? CacheGroupKey => "GetBrands";
 

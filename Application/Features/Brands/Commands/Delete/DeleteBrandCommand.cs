@@ -15,9 +15,9 @@ public class DeleteBrandCommand : IRequest<DeletedBrandResponse>, ICacheRemoverR
 {
     public Guid Id { get; set; }
 
-    public string? CacheKey => throw new NotImplementedException();
+    public string? CacheKey => "";
 
-    public bool BypassCache => throw new NotImplementedException();
+    public bool BypassCache => false;
 
     public string? CacheGroupKey => "GetBrands";
 
